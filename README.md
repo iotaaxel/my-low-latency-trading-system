@@ -101,3 +101,28 @@ Optimize the code to reduce latency by minimizing lock contentions and improving
 2. Specify how you want the tracking and limiting to be implemented.
 3. Clarify what kind of risk management tracking you need.
 4. Consider connecting to an API or database.
+5. 
+
+### Option 1 Revised:
+In this optimized version:
+
+We use an unordered_map instead of a map for faster lookups.
+We've added the exposure field to the Account class to track the current exposure per account.
+We've added the maxExposure field to the Account class to set the maximum allowed exposure per account.
+We've added the stopLoss field to the Account class to set the stop-loss percentage.
+In the placeTrade method, we check if the trade exceeds the maximum allowed exposure and trigger the stop-loss mechanism if necessary.
+We've also added basic risk management tracking by updating the exposure field after each trade.
+Note that this is a simplified example and you may want to add more features and complexity to a real-world trading system.
+
+### Option 2 Revised:
+In this optimized version:
+
+We use an unordered_map instead of a map for faster lookups.
+We've added the exposure field to the Account class to track the current exposure per account.
+We've added the maxExposure field to the Account class to set the maximum allowed exposure per account.
+We've added the stopLoss field to the Account class to set the stop-loss percentage.
+In the placeTrade method, we check if the trade exceeds the maximum allowed exposure and trigger the stop-loss mechanism if necessary.
+We've also added basic risk management tracking by updating the exposure field after each trade.
+Note that this is a simplified example and you may want to add more features and complexity to a real-world trading system.
+
+
