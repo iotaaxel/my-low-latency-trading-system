@@ -156,5 +156,32 @@ We use atomic variables for balance and exposure to ensure thread-safe updates.
 This updated version should provide better thread safety and scalability. However, keep in mind that this is still a simplified example and may not cover all the complexities of a real-world trading system. You may need to add additional functionality and risk management metrics depending on your specific requirements.
 
 
+### Option 1 Memory Safety and Race conditions
 
+The code has several issues:
 
+Memory Leak: The tradeProcessingThread is not joined in the destructor of TradingSystem class. This can lead to a memory leak if the TradingSystem object is destroyed before the thread is joined.
+
+Race Condition: The tradeQueue is accessed by multiple threads without proper synchronization. This can lead to a race condition where the tradeQueue is accessed simultaneously by multiple threads, resulting in undefined behavior.
+
+Scalability: The TradingSystem class uses a single thread to process trades for all accounts. This can lead to a bottleneck if the number of accounts is large. A more scalable approach would be to use a thread pool to process trades in parallel.
+
+Robustness: The TradingSystem class does not handle exceptions properly. If an exception occurs in the processTrades method, it can lead to the termination of the trade processing thread. This can result in trades not being processed and the system being left in an inconsistent state.
+
+This code fixes the memory leak by joining the tradeProcessingThread in the destructor of TradingSystem. It also fixes the race condition by using a condition variable to synchronize access to the tradeQueue. Additionally, it improves the scalability by using a separate thread to process trades, and it improves the robustness by handling exceptions properly.
+
+### Option 2 Memory Safety and Race conditions
+
+The given code has several issues that can be improved for better scalability, robustness, and to avoid potential memory leaks and race conditions:
+
+In the placeTrade function, the tradeQueue is accessed without proper synchronization. This can lead to a race condition when multiple threads are placing trades simultaneously. To fix this, a mutex can be used to protect access to the tradeQueue.
+
+In the processTrades function, the tradeQueue is accessed without proper synchronization. This can lead to a race condition when multiple threads are processing trades simultaneously. To fix this, a mutex can be used to protect access to the tradeQueue.
+
+In the processTrades function, the accounts map is accessed without proper synchronization. This can lead to a race condition when multiple threads are accessing accounts simultaneously. To fix this, a mutex can be used to protect access to the accounts map.
+
+In the getRiskManagementMetrics function, the accounts map is accessed without proper synchronization. This can lead to a race condition when multiple threads are accessing accounts simultaneously. To fix this, a mutex can be used to protect access to the accounts map.
+
+The tradeProcessingThread is not properly joined in the destructor of the TradingSystem class. This can lead to a resource leak if the TradingSystem object is destroyed before the thread is joined. To fix this, the tradeProcessingThread should be joined in the destructor.
+
+This improved code uses a std::mutex to protect access to the tradeQueue and a std::condition_variable to notify the trade processing thread when a new trade is added to the queue. The trade processing thread uses a std::unique_lock to wait for new trades and a std::shared_lock to access the accounts map. The getRiskManagementMetrics function also uses a std::shared_lock to access the accounts map. The destructor of the TradingSystem class properly joins the trade processing thread to prevent resource leaks.
