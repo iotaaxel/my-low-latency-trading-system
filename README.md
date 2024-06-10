@@ -126,4 +126,35 @@ We check if the stop-loss is triggered after executing a trade and close all pos
 Note that this is a simplified example and may not cover all the complexities of a real-world trading system. You may need to add additional functionality and risk management metrics depending on your specific requirements.
 
 
+### Option 1 Thread-Safe:
+
+To ensure that the code is thread-safe and scalable, you can consider the following improvements:
+
+1. Use a thread-safe map:
+  The std::map is not thread-safe by default. You can use a thread-safe map like std::unordered_map with a mutex or a lock-free map implementation.
+2. Use a read-write lock:
+  Instead of using a std::mutex which locks the entire map for both read and write operations, consider using a read-write lock like std::shared_mutex. This allows multiple threads to read simultaneously while preventing writes.
+3. Use a concurrent queue for trades:
+   Instead of processing trades directly in the placeTrade function, consider using a concurrent queue to store trades and process them in a separate thread. This decouples the trade processing from the main thread and improves responsiveness.
+5. Use a thread pool for risk management metrics:
+   Instead of calculating risk management metrics in the getRiskManagementMetrics function, consider using a thread pool to calculate metrics in parallel. This improves responsiveness and scalability.
+6. Avoid locking the entire map for individual account operations: 
+Instead of locking the entire map for individual account operations, consider using a lock striping approach. This involves dividing the map into smaller segments and locking only the relevant segment for each account operation.
+
+This updated version uses a std::unordered_map with a std::shared_mutex for thread-safe access, a concurrent queue for trades, and a separate thread for processing trades. It also uses a thread pool for calculating risk management metrics. Additionally, it uses lock striping to lock only the relevant segment of the map for individual account operations.
+
+### Option 2 Thread-Safe:
+
+To ensure the code is thread-safe and scalable, you can use a combination of mutexes and atomic variables to protect shared data. 
+
+In this updated version:
+
+We use a std::shared_mutex instead of a std::mutex to allow for shared locking, which can improve performance in read-heavy scenarios.
+We use std::unique_lock for exclusive locking and std::shared_lock for shared locking.
+We make the mtx member variable mutable to allow for shared locking in getRiskManagementMetrics.
+We use atomic variables for balance and exposure to ensure thread-safe updates.
+This updated version should provide better thread safety and scalability. However, keep in mind that this is still a simplified example and may not cover all the complexities of a real-world trading system. You may need to add additional functionality and risk management metrics depending on your specific requirements.
+
+
+
 
