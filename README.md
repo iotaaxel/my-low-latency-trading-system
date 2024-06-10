@@ -117,12 +117,13 @@ Note that this is a simplified example and you may want to add more features and
 ### Option 2 Revised:
 In this optimized version:
 
-We use an unordered_map instead of a map for faster lookups.
-We've added the exposure field to the Account class to track the current exposure per account.
-We've added the maxExposure field to the Account class to set the maximum allowed exposure per account.
-We've added the stopLoss field to the Account class to set the stop-loss percentage.
-In the placeTrade method, we check if the trade exceeds the maximum allowed exposure and trigger the stop-loss mechanism if necessary.
-We've also added basic risk management tracking by updating the exposure field after each trade.
-Note that this is a simplified example and you may want to add more features and complexity to a real-world trading system.
+We use std::atomic<double> for balance and exposure in the Account class to minimize lock contentions when updating these values.
+We add maxExposure and stopLoss to the Account class to track and limit the maximum exposure per account and implement stop-loss mechanisms.
+We add a getRiskManagementMetrics function to the TradingSystem class to track risk management metrics, such as risk exposure.
+We use a std::lock_guard to ensure thread-safe access to the accounts map.
+We check if a trade exceeds the maximum exposure before executing it.
+We check if the stop-loss is triggered after executing a trade and close all positions and disable trading for the account if it is.
+Note that this is a simplified example and may not cover all the complexities of a real-world trading system. You may need to add additional functionality and risk management metrics depending on your specific requirements.
+
 
 
