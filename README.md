@@ -1,5 +1,7 @@
 # My Low Latency Trading System
 
+**Disclaimer**: This was a **very early** prototype. The beta-friendly version is a private WIP. Options 1 and 2 in C++ and JavaScript are experimental. I have since been incorporating code concepts iteratively. The underlying structure is similar. Eventually, the FIX protocol extension and message bus libraries I am working on will likely be incorporated (after necessary audits, of course). 
+
 A user-friendly low-latency trading system in C++23 or C++26 that includes features liked by users of the Binance and Kraken platforms. The system should follow New York compliance regulations.
 
 ## Option 1:
