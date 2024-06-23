@@ -2,13 +2,13 @@
 
 **Disclaimer**: This was a **very early** prototype. The beta-friendly version is a private WIP. Options 1 and 2 in C++ and JavaScript are experimental. I have since been incorporating code concepts iteratively. The underlying structure is similar. Eventually, the FIX protocol extension and message bus libraries I am working on will likely be incorporated (after necessary audits, of course). 
 
-A user-friendly low-latency trading system in C++23 or C++26 that includes features liked by users of the Binance and Kraken platforms. The system should follow New York compliance regulations.
+A user-friendly low-latency trading system in C++ that includes features liked by users of the Binance and Kraken platforms. The system should follow New York compliance regulations.
 
 ## Option 1:
 
 ### Overview
 
-Designing a full-fledged trading system is a complex task that requires a deep understanding of trading platforms, compliance regulations, and software development. Here's a high-level outline of how you could approach this task in C++23 or C++26:
+Designing a full-fledged trading system is a complex task that requires a deep understanding of trading platforms, compliance regulations, and software development. Here's a high-level outline of how you could approach this task in C++:
 
 1. Compliance with New York Regulations: Familiarize yourself with the regulations and guidelines set by the New York State Department of Financial Services (NYSDFS) for virtual currency businesses. This includes implementing Know-Your-Customer (KYC) and Anti-Money Laundering (AML) checks, as well as adhering to cybersecurity and data protection standards.
 
